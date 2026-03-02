@@ -1,0 +1,93 @@
+import java.util.*;
+
+public class PalindromeCheckerApp {
+
+    // Normalize String
+    public static String normalize(String input) {
+        return input.toLowerCase().replaceAll("\\s+", "");
+    }
+
+    // 1️⃣ Stack Approach
+    public static boolean stackPalindrome(String input) {
+        String str = normalize(input);
+        Stack<Character> stack = new Stack<>();
+
+        for (char ch : str.toCharArray())
+            stack.push(ch);
+
+        for (char ch : str.toCharArray())
+            if (ch != stack.pop())
+                return false;
+
+        return true;
+    }
+
+    // 2️⃣ Deque Approach
+    public static boolean dequePalindrome(String input) {
+        String str = normalize(input);
+        Deque<Character> deque = new LinkedList<>();
+
+        for (char ch : str.toCharArray())
+            deque.addLast(ch);
+
+        while (deque.size() > 1)
+            if (deque.removeFirst() != deque.removeLast())
+                return false;
+
+        return true;
+    }
+
+    // 3️⃣ Two-Pointer Approach (Most Efficient)
+    public static boolean twoPointerPalindrome(String input) {
+        String str = normalize(input);
+        int start = 0;
+        int end = str.length() - 1;
+
+        while (start < end) {
+            if (str.charAt(start) != str.charAt(end))
+                return false;
+            start++;
+            end--;
+        }
+        return true;
+    }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter a string: ");
+        String input = sc.nextLine();
+
+        long startTime, endTime;
+
+        // Stack Test
+        startTime = System.nanoTime();
+        boolean stackResult = stackPalindrome(input);
+        endTime = System.nanoTime();
+        long stackTime = endTime - startTime;
+
+        // Deque Test
+        startTime = System.nanoTime();
+        boolean dequeResult = dequePalindrome(input);
+        endTime = System.nanoTime();
+        long dequeTime = endTime - startTime;
+
+        // Two Pointer Test
+        startTime = System.nanoTime();
+        boolean twoPointerResult = twoPointerPalindrome(input);
+        endTime = System.nanoTime();
+        long twoPointerTime = endTime - startTime;
+
+        System.out.println("\n--- Results ---");
+        System.out.println("Stack Approach Result: " + stackResult);
+        System.out.println("Execution Time: " + stackTime + " ns");
+
+        System.out.println("\nDeque Approach Result: " + dequeResult);
+        System.out.println("Execution Time: " + dequeTime + " ns");
+
+        System.out.println("\nTwo Pointer Approach Result: " + twoPointerResult);
+        System.out.println("Execution Time: " + twoPointerTime + " ns");
+
+        sc.close();
+    }
+}
