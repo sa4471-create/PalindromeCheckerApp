@@ -1,0 +1,26 @@
+public class PalindromeCheckerApp{
+
+    // Main method - Entry point of the Java application
+    public static void main(String[] args) {
+
+        // Hardcoded string (String Literal stored in String pool)
+        String word = "racecar";
+
+        // Variable to store reversed string
+        String reversed = "";
+
+        // Reverse the string using a loop
+        for (int i = word.length() - 1; i >= 0; i--) {
+            reversed = reversed + word.charAt(i);
+        }
+
+        // Conditional statement to check palindrome
+        if (word.equals(reversed)) {
+            System.out.println("The word \"" + word + "\" is a Palindrome.");
+        } else {
+            System.out.println("The word \"" + word + "\" is NOT a Palindrome.");
+        }
+
+        // Program exits automatically after main method completes
+    }
+}
